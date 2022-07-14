@@ -11,6 +11,7 @@ const pieces = document.querySelectorAll('.piece')
 
 const turn = document.querySelector("#turn")
 const moves = document.querySelector("#moves")
+const message = document.querySelector('#message')
 
 const placeMarkers = () => {
 
@@ -102,6 +103,9 @@ const showWinner = (winRow) => {
             document.getElementById(`${coordPair[0]}-${coordPair[1]}`)
                 .classList.add('win')
         })
+        gameState.selectedSquare = null
+        const winner = {r:"RED",b:"BLUE"}[gameState.board[winRow[0][0]][winRow[0][1]]]
+        message.innerHTML = `<div><span class="${winner.toLowerCase()}">${winner}</span> WINS! PLAY AGAIN?</div>`
         return true
     }
     return false
@@ -136,8 +140,9 @@ squares.forEach(square => {
     })
 })
 
-const newGame = () => {
 
+const newGame = () => {
+    
     // clear all "pieces" from DOM and gameState
     squares.forEach(square => square.setAttribute('class', 'square'))
     gameState.board = [
@@ -146,12 +151,17 @@ const newGame = () => {
         [" ", " ", " ", " "],
         [" ", " ", " ", " "]
     ]
-    gameState.selectedSquare = null
+    
+    // clear the message and reset moves
+    message.innerHTML = ""
+    gameState.moves = 0
+    moves.innerHTML = gameState.moves
+    
     // make it red's turn
     gameState.turn === "b" && switchTurn()
     board.classList.add('r')
-
+    
     placeMarkers()
 }
 
-newGame()
+message.addEventListener('click', newGame)

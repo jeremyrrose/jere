@@ -85,3 +85,31 @@
     color: blue;
     content: "BLUE";
 }
+
+/* MESSAGE */
+
+#message {
+    width: 80vh;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 4vh;
+    background: yellow;
+    cursor: pointer;
+}
+
+#message div {
+    padding: 1vh 0;
+}
+
+#message:hover {
+    opacity: .6;
+}
+
+#message .red {
+    color: red;
+}
+
+#message .blue {
+    color: blue;
+}

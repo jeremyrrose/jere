@@ -72,8 +72,28 @@ const switchTurn = () => {
     }
 }
 
-const checkForWinner = () => {
+const victoryRows = [
+    [[0,0],[0,1],[0,2],[0,3]],
+    [[1,0],[1,1],[1,2],[1,3]],
+    [[2,0],[2,1],[2,2],[2,3]],
+    [[3,0],[3,1],[3,2],[3,3]],
+    [[0,0],[1,0],[2,0],[3,0]],
+    [[0,1],[1,1],[2,1],[3,1]],
+    [[0,2],[1,2],[2,2],[3,2]],
+    [[0,3],[1,3],[2,3],[3,3]],
+    [[0,0],[1,1],[2,2],[3,3]],
+    [[0,3],[1,2],[2,1],[3,0]]
+]
 
+const checkForWinner = () => {
+    const win = victoryRows.find(row => {
+        return row
+            .map(x => gameState.board[x[0]][x[1]])
+            .reduce((a,c) => a.includes(c) ? a : a + c)
+            .length === 1
+    })
+    console.log(win)
+    return win || false
 }
 
 squares.forEach(square => {
@@ -97,7 +117,7 @@ squares.forEach(square => {
                 gameState.selectedSquare.classList.remove('selected')
                 gameState.moves += 1
                 moves.innerText = gameState.moves
-                switchTurn()
+                checkForWinner() || switchTurn()
             } else {
                 console.log('cant!')
             }

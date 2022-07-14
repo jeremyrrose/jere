@@ -1,0 +1,83 @@
+#game-board {
+    width: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border: 1px solid black;
+}
+
+
+.square {
+    border: 1px solid black;
+    height: 20vh;
+    pointer-events: none;
+}
+
+.square div {
+    margin: 18% auto;
+    width: 60%;
+    height: 60%;
+    border-radius: 100%;
+    transition: .2s;
+}
+
+.square.red div {
+    background: red;
+}
+.square.blue div {
+    background: blue;
+}
+
+.square.red div:hover, .square.blue div:hover {
+    opacity: .6;
+}
+
+/* class is applied to board based on turn, enabling click */
+#game-board.r .square.red div, #game-board.b .square.blue div {
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+#game-board.piece-selected .square {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+#game-board.piece-selected .square:hover {
+    background-color: rgba(0,0,0,.2);
+}
+
+#game-board.piece-selected .square.red, #game-board.piece-selected .square.blue {
+    pointer-events: none;
+    cursor: auto;
+}
+
+#game-board.piece-selected .square.selected {
+    background: lightgreen;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+/* GAME INFO */
+
+#game-info {
+    width: 80vh;
+    display: flex;
+    justify-content: space-between;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 6vh;
+}
+
+#game-info div {
+    display: flex;
+}
+
+#turn.red::after {
+    content: "RED";
+    color: red;
+}
+
+#turn.blue::after {
+    color: blue;
+    content: "BLUE";
+}

@@ -12,6 +12,10 @@
     pointer-events: none;
 }
 
+.square.win {
+    background: yellow;
+}
+
 .square div {
     margin: 18% auto;
     width: 60%;

@@ -87,13 +87,24 @@ const victoryRows = [
 
 const checkForWinner = () => {
     const win = victoryRows.find(row => {
-        return row
+        const occ = row
             .map(x => gameState.board[x[0]][x[1]])
             .reduce((a,c) => a.includes(c) ? a : a + c)
-            .length === 1
+            console.log(occ)
+        return occ.length === 1 && !occ.includes(' ')
     })
-    console.log(win)
     return win || false
+}
+
+const showWinner = (winRow) => {
+    if (winRow) {
+        winRow.forEach(coordPair => {
+            document.getElementById(`${coordPair[0]}-${coordPair[1]}`)
+                .classList.add('win')
+        })
+        return true
+    }
+    return false
 }
 
 squares.forEach(square => {
@@ -117,7 +128,7 @@ squares.forEach(square => {
                 gameState.selectedSquare.classList.remove('selected')
                 gameState.moves += 1
                 moves.innerText = gameState.moves
-                checkForWinner() || switchTurn()
+                showWinner(checkForWinner()) || switchTurn()
             } else {
                 console.log('cant!')
             }
@@ -135,6 +146,7 @@ const newGame = () => {
         [" ", " ", " ", " "],
         [" ", " ", " ", " "]
     ]
+    gameState.selectedSquare = null
     // make it red's turn
     gameState.turn === "b" && switchTurn()
     board.classList.add('r')
